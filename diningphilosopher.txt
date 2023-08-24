@@ -15,7 +15,7 @@ int main()
   int i, status_message;
   void *msg;
 
-  printf("\n\nG.Rakshitha 1BM21CS258");
+
   for (i = 1; i <= NUM_CHOPSTICKS; i++)
   {
     status_message = pthread_mutex_init(&chopstick[i], NULL);
