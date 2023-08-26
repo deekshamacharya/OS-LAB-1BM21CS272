@@ -1,39 +1,45 @@
-#include <stdio.h>
-int main()
+#include<stdio.h>
+int main(){
+int at[10],bt[10],smallest,completion_time,time,remain=0,n,rt[10];
+float tat,wt;
+printf("enter the number of processes");
+scanf("%d",&n);
+
+
+
+printf("enter the arrival time\n");
+for(int i=0;i<n;i++)
+scanf("%d",&at[i]);
+
+
+printf("enter the burst time\n");
+for(int i=0;i<n;i++)
+scanf("%d",&bt[i]);
+
+for(int i=0;i<n;i++)
+    rt[i]=bt[i];
+bt[9]=9999;
+
+for(time=0;remain!=n;time++)
 {
- int a[10],b[10],x[10],i,j,smallest,count=0,time,n;
- double avg=0,tt=0,end;
-  printf("enter the number of Processes:\n");
-  scanf("%d",&n);
- printf("enter arrival time\n");
- for(i=0;i<n;i++)
- scanf("%d",&a[i]);
- printf("enter burst time\n");
- for(i=0;i<n;i++)
- scanf("%d",&b[i]);
- for(i=0;i<n;i++)
- x[i]=b[i];
-
-  b[9]=9999;
-
- for(time=0;count!=n;time++)
- {
-   smallest=9;
-  for(i=0;i<n;i++)
-  {
-   if(a[i]<=time && b[i]<b[smallest] && b[i]>0 )
-   smallest=i;
-  }
-  b[smallest]--;
-  if(b[smallest]==0)
-  {
-   count++;
-   end=time+1;
-   avg=avg+end-a[smallest]-x[smallest];
-   tt= tt+end-a[smallest];
-  }
- }
- printf("\n\nAverage waiting time = %lf\n",avg/n);
-    printf("Average Turnaround time = %lf",tt/n);
-    return 0;
+    int smallest=9;
+for(int i=0;i<n;i++)
+{
+if(at[i]<=time && bt[i]<bt[smallest] && bt[i]>0)
+{
+smallest=i;
+}
+}
+bt[smallest]--;
+if( bt[smallest]==0)
+{
+remain++;
+completion_time=time+1;
+tat=tat+completion_time-at[smallest];
+wt=wt+completion_time-at[smallest]-rt[smallest];
+}
+}
+printf("avg tat is %f\n",(tat)/n);
+printf("avg wt is %f\n",(wt)/n);
+return 0;
 }
