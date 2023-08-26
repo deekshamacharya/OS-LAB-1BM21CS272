@@ -1,68 +1,66 @@
-#include <stdio.h>
-
-void swap(int *a,int *b)
-{
-    int temp=*a;
-    *a=*b;
-    *b=temp;
-}
+#include<stdio.h>
+int n,bt[10],pr[10],temp,tat[10],wt[10],p[10];
+float total_tat,total_wt;
 int main()
 {
-    int n;
-    printf("Enter Number of Processes: ");
-    scanf("%d",&n);
-    int burst[n],priority[n],index[n];
-    for(int i=0;i<n;i++)
-    {
-        printf("Enter Burst Time and Priority Value for Process %d: ",i+1);
-        scanf("%d %d",&burst[i],&priority[i]);
-        index[i]=i+1;
-    }
-    for(int i=0;i<n;i++)
-    {
-        int temp=priority[i],m=i;
+printf("enter the number of processes");
+scanf("%d",&n);
 
-        for(int j=i;j<n;j++)
-        {
-            if(priority[j] > temp)
-            {
-                temp=priority[j];
-                m=j;
-            }
-        }
+printf("enter the burst time of the processes");
+ for(int i=0;i<n;i++)
+ {
+ scanf("%d",&bt[i]);
+ }
+ printf("enter the process id of the processes");
+  for(int i=0;i<n;i++)
+  {
+  scanf("%d",&p[i]);}
 
-        swap(&priority[i], &priority[m]);
-        swap(&burst[i], &burst[m]);
-        swap(&index[i],&index[m]);
-    }
+ printf("enter the priority of the processes");
+  for(int i=0;i<n;i++)
+  {
+  scanf("%d",&pr[i]);
+  }
+  for(int i=0;i<n;i++)
+  {
+  for(int j=0;j<n-i-1;j++)
+  {
+  if(pr[j]<pr[j+1])
+  {
+  temp=p[j];
+  p[j]=p[j+1];
+  p[j+1]=temp;
 
-    int t=0;
+  temp=bt[j];
+  bt[j]=bt[j+1];
+  bt[j+1]=temp;
+  }
 
-    printf("Order of process Execution is\n");
-    for(int i=0;i<n;i++)
-    {
-        printf("P%d is executed from %d to %d\n",index[i],t,t+burst[i]);
-        t+=burst[i];
-    }
-    printf("\n");
-    printf("Process Id\tBurst Time\tWait Time\n");
-    int wait_time=0;
-    int total_wait_time = 0;
-    for(int i=0;i<n;i++)
-    {
-        printf("P%d\t\t%d\t\t%d\n",index[i],burst[i],wait_time);
-        total_wait_time += wait_time;
-        wait_time += burst[i];
-    }
 
-    float avg_wait_time = (float) total_wait_time / n;
-    printf("Average waiting time is %f\n", avg_wait_time);
+}  }
 
-    int total_Turn_Around = 0;
-    for(int i=0; i < n; i++){
-        total_Turn_Around += burst[i];
-    }
-    float avg_Turn_Around = (float) total_Turn_Around / n;
-    printf("Average TurnAround Time is %f",avg_Turn_Around);
-    return 0;
-}
+
+    wt[-1]=0;
+    bt[-1]=0;
+
+  for(int i=0;i<n;i++)
+  {
+
+  wt[i]=wt[i-1]+bt[i-1];
+   printf(" waiting time:%d \n",wt[i]);
+   tat[i]=wt[i]+bt[i];
+  printf(" turn around time:%d \n",tat[i]);
+  }
+
+
+
+  for(int i=0;i<n;i++){
+  total_tat=total_tat+tat[i];
+  total_wt=total_wt+wt[i];
+  }
+  printf("avg tat %f \n",(total_tat)/n);
+  printf("avg wt  %f\n",(total_wt)/n);
+return 0;
+  }
+
+
