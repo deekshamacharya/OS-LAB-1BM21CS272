@@ -1,0 +1,24 @@
+int main()
+{
+    int n,initial,td  ;
+    printf("enter the number of requests");
+    scanf("%d",&n);
+int r[100];
+    printf("enter the requests");
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&r[i]);
+    }
+    printf("enter the initial");
+    scanf("%d",&initial);
+
+    for(int i=0;i<n;i++)
+    {
+
+        td=td+abs(r[i]-initial);
+        initial=r[i];
+    }
+    printf("total head moment %d",td);
+    return 0;
+
+}
