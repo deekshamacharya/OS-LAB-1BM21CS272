@@ -1,0 +1,51 @@
+#include<stdio.h>
+int main()
+{
+int n,initial,size,totaldist;
+printf("enter the number of requests");
+scanf("%d",&n);
+int r[100];
+printf("enter the requests");
+for(int i=0;i<n;i++){
+scanf("%d",&r[i]);}
+printf("enter the initial");
+scanf("%d",&initial);
+printf("enter the size of the cylinder");
+scanf("%d",&size);
+
+
+for(int i=0;i<n-1;i++)
+{
+for(int j=0;j<n-i-1;j++)
+{
+if(r[j]>r[j+1])
+{
+int temp=r[j];
+r[j]=r[j+1];
+r[j+1]=temp;
+}
+}
+}
+int index=0;
+while(index<n && r[index]<initial){
+index++;
+}
+for(int i=index;i<n;i++)
+{
+totaldist=totaldist+abs(initial-r[i]);
+initial=r[i];
+}
+
+for(int i=index-1;i>=0;i--)
+{
+totaldist=totaldist+abs(initial-r[i]);
+initial=r[i];
+}
+printf("Order of servicing requests: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", r[i]);
+    }
+
+printf("total distance %d",totaldist);
+return 0;
+}
