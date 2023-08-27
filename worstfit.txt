@@ -1,0 +1,56 @@
+#include <stdio.h>
+
+void worstfit(int bn, int pn, int blocksize[10], int processsize[10]) {
+    int allocation[pn];
+
+    for (int i = 0; i < pn; i++) {
+        int worstfitIndex = -1;
+        for (int j = 0; j < bn; j++) {
+            if (blocksize[j] >= processsize[i]) {
+                if (worstfitIndex == -1 || blocksize[worstfitIndex] < blocksize[j]) {
+                    worstfitIndex = j;
+                }
+            }
+        }
+        if (worstfitIndex != -1) {
+            allocation[i] = worstfitIndex;
+            blocksize[worstfitIndex] -= processsize[i];
+        } else {
+            allocation[i] = -1;
+        }
+    }
+
+    printf("\nprocessnumber\tprocesssize\tblocksize\n");
+    for (int i = 0; i < pn; i++) {
+        printf("\n%d\t\t%d\t\t%d", i + 1, processsize[i]);
+        if (allocation[i] != -1) {
+            printf("\t\t%d", allocation[i] + 1);
+        } else {
+            printf("\t\tnot allocated");
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int bn, pn;
+    printf("Enter the number of blocks: ");
+    scanf("%d", &bn);
+    int blocksize[10];
+    printf("Enter the block sizes:\n");
+    for (int i = 0; i < bn; i++) {
+        scanf("%d", &blocksize[i]);
+    }
+
+    printf("Enter the number of processes: ");
+    scanf("%d", &pn);
+    int processsize[10];
+    printf("Enter the process sizes:\n");
+    for (int i = 0; i < pn; i++) {
+        scanf("%d", &processsize[i]);
+    }
+
+    worstfit(bn, pn, blocksize, processsize);
+
+    return 0;
+}
