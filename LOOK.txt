@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int n, initial, totalHeadMovement = 0;
+
+    printf("Enter the number of requests: ");
+    scanf("%d", &n);
+
+    int RQ[n];
+
+    printf("Enter the request queue:\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &RQ[i]);
+    }
+
+    printf("Enter the initial head position: ");
+    scanf("%d", &initial);
+
+    // Sort the request queue
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (RQ[i] > RQ[j]) {
+                int temp = RQ[i];
+                RQ[i] = RQ[j];
+                RQ[j] = temp;
+            }
+        }
+    }
+
+    // Find the position of initial head in the sorted queue
+   int index=0;
+   while(index<n||RQ[index]>=initial){
+    index++;}
+
+
+    // Move towards higher tracks
+    for (int i = index; i < n; i++) {
+        totalHeadMovement += abs(RQ[i] - initial);
+        initial = RQ[i];
+    }
+
+    // Move towards lower tracks
+    for (int i = index - 1; i >= 0; i--) {
+        totalHeadMovement += abs(RQ[i] - initial);
+        initial = RQ[i];
+    }
+
+    printf("Total Head Movement: %d\n", totalHeadMovement);
+
+    return 0;
+}
